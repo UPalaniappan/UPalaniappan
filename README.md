@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @UPalaniappan
 - 👀 I’m interested in Data Analysis
-- 🌱 I’m currently learning python & Tableau
+- 🌱 I’m currently learning SQL, Tableau , Python and other data analysis tools
 
 
 <!---
