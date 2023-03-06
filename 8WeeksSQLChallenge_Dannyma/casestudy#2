@@ -2,8 +2,8 @@
   --PIZZA METRICS  
 --1.How many pizzas were ordered?
 
-  SELECT count(*)
-  FROM pizza_runner.customer_orders
+	  SELECT count(*)
+	  FROM pizza_runner.customer_orders
 
 --2.How many unique customer orders were made?
 	SELECT COUNT(DISTINCT order_id)
@@ -12,8 +12,8 @@
 --3.How many successful orders were delivered by each runner?
 --counting no. of successful orders using CASE.
 	SELECT runner_id,
-	SUM(CASE WHEN cancellation='' or cancellation is NULL or cancellation='null'then 1
-      ELSE 0 end) as count_of_success
+		SUM(CASE WHEN cancellation='' or cancellation is NULL or cancellation='null'then 1
+      		ELSE 0 end) as count_of_success
 	FROM pizza_runner.runner_orders
 	GROUP BY 1
 	ORDER BY 1
@@ -153,17 +153,20 @@
 
 -- 1.How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 --use datepart function to get the week number	
+
   SELECT DATE_PART('week', registration_date) AS week_value,
     COUNT(*)
   FROM pizza_runner.runners
-  GROUP BY 1;
+  GROUP BY 1
+  
 --(option 2) week number from 1   
-    SELECT 
+   
+   SELECT 
       to_char(registration_date, 'WW') as week,
       count(*)
-     FROM pizza_runner.runners
-     GROUP BY 1
-     ORDER BY 1;
+   FROM pizza_runner.runners
+   GROUP BY 1
+   ORDER BY 1
 
 -- 2.What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 --subquery - first join both tables where pickup time was not null(As it can cause problem while subracting). cast the pickup_time to timestamp to get the interval. Use epoch to get the difference in seconds. 
@@ -259,6 +262,7 @@
     
 --2. What was the most commonly added extra?
 -- temp table to unnest the extras where there is no null
+
 	WITH extras AS
     (SELECT order_id, extras, 
     UNNEST(STRING_TO_ARRAY(extras,','))::INTEGER AS extras_unnest
@@ -274,6 +278,7 @@
     LIMIT 1
 --3. What was the most common exclusion?
 -- temp table to unnest the extras where there is no null
+
 		WITH exclusions AS
     (SELECT order_id, exclusions, 
     UNNEST(STRING_TO_ARRAY(exclusions,','))::INTEGER AS exclusions_unnest
