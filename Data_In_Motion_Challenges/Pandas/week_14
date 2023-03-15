@@ -12,7 +12,7 @@ format_date=pd.to_datetime(ser, infer_datetime_format=True)
 print(format_date)
 
 # get day of the month using dt.day. 
-#change the serial to string using tolist() function. 
+#change the serial to string using tolist() function
 #change it to string to print it
 
 day_of_month=format_date.dt.day
