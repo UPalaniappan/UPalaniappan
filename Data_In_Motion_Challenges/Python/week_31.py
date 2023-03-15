@@ -65,7 +65,7 @@ def pluralize(my_list):
         elif counts>1:
             item=my_list[i] + "s"
             
-#     if the animal already in new list leave it or else add it using append()
+#     if the item already in new list leave it or else add it using append()
         if item in new_list:
             pass
         else:
