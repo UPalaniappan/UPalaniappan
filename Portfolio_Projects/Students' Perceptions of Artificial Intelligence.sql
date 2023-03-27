@@ -1,5 +1,8 @@
+#Portfolio project
 # created temp table
 # used case, joins, count and other window functions
+
+
 
 #temp table DROP TABLE IF EXISTS thoughts_cleaned;
 
