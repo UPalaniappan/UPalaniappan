@@ -1,5 +1,5 @@
-- 👋 Hi, I’m Umamaheswari Palaniappan
-Welcome to my Github page! 
+- 👋 Hi, I’m Umamaheswari Palaniappan.
+Welcome to my Github page. 
 Take a look at my work here!
 
 <!---
