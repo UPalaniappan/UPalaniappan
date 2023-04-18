@@ -1,7 +1,6 @@
-- 👋 Hi, I’m @UPalaniappan
-- 👀 I’m interested in Data Analysis
-- 🌱 I’m currently learning SQL, Tableau , Python and other data analysis tools
-
+- 👋 Hi, I’m Umamaheswari Palaniappan
+Welcome to my Github page! 
+Take a look at my work here!
 
 <!---
 UPalaniappan/UPalaniappan is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
