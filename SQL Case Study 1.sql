@@ -10,13 +10,17 @@ CTEs*/
 
 
 --1) Which product has the highest price? Only return a single row.
-	SELECT * 
+--use order by Desc to sort the products from highes to lowest price and limit 1
+  SELECT * 
   FROM products
   ORDER BY price DESC
   LIMIT 1
 
 
 --2) Which customer has made the most orders?
+--join customers and orders table to get the customers related to orders
+--use window function DENSE_RANK() to rank the customer with most orders(count orders) in CTE
+--select only the the customers with rank 1 (This will get all the customers with same no. of maximum orders)
 WITH total_order_ranking as(
 SELECT customers.customer_id, 
 		   first_name, 
@@ -33,6 +37,8 @@ GROUP BY 1,2,3)
     
 
 --3) What’s the total revenue per product?
+-- join products and order_items table
+-- calculate total revenue by multiplying price and quantity and add using SUM function. GROUP BY product to calculate for each product
 SELECT product_name, SUM(price*quantity) as total_revenue
 FROM order_items as oi
 JOIN products as p
@@ -42,6 +48,9 @@ ORDER BY 2 DESC
 
 
 --4) Find the day with the highest revenue.
+--join order_items, products and orders 
+--find total revenue per day by grouping by date. 
+--cast order_date to integer to display only the date
 SELECT (order_date::varchar), SUM(price*quantity) as total_revenue
 FROM order_items as oi
 JOIN products as p
@@ -53,7 +62,8 @@ ORDER BY 2  DESC
 
 
 --5) Find the first order (by date) for each customer.
-
+--use CTE to give row number for each order from earliest for each customer
+--join CTE table and customers table where row number=1 (That is the first order)
 WITH first_order as
 (SELECT order_id, 
         customer_id, 
@@ -69,6 +79,7 @@ FROM orders
 
 
 --6) Find the top 3 customers who have ordered the most distinct products
+--use DISTINCT to get only the unique product
   SELECT customer_id, COUNT(DISTINCT p.product_id)
   FROM order_items as oi
   JOIN products p
@@ -81,7 +92,8 @@ FROM orders
 
 
 --7) Which product has been bought the least in terms of quantity?
-
+-- IN CTE use dense_RANK window function to rank the products from lowest orders to highest orders
+-- Select only the product with ranking 1(that is lowest orders)
 WITH rankings as(
  SELECT p.product_id, 
         product_name, 
@@ -100,6 +112,10 @@ WITH rankings as(
   
 
 --8) What is the median order total?
+--median is the value in the middle of sorted data set 
+--In first CTE find total revenue
+--In second CTE give row number from highest to lowest amount
+--divide the row number by 2 and get the revenue in that row(it is approximate)
 WITH revenue_per_order as
   (SELECT o.order_id,  
           SUM(price*quantity) as total_revenue
@@ -120,7 +136,10 @@ FROM sorting_order
 WHERE sorting=total/2 or sorting=ROUND(total/2,1)
 
 
---9) For each order, determine if it was ‘Expensive’ (total over 300), ‘Affordable’ (total over 100), or ‘Cheap’.
+--9) For each order, determine if it was ‘Expensive’ (total over 300), 
+--‘Affordable’ (total over 100), or ‘Cheap’.
+--In CTE join the requered tables
+--use CASE statements to give the condition provided 
 WITH revenue_per_order as
   (SELECT o.order_id,  
           SUM(price*quantity) as total_revenue
@@ -140,6 +159,8 @@ WITH revenue_per_order as
 
 
 --10) Find customers who have ordered the product with the highest price.
+--in the where statement filter only the product that has the highest price
+--find the customers ho have bought it by joining the required tables
 SELECT c.customer_id, CONCAT(first_name,' ', last_name) as full_name, oi.product_id, quantity
 FROM orders as o
 JOIN customers as c
