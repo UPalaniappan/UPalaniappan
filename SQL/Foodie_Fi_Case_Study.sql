@@ -132,7 +132,7 @@ JOIN foodie_fi.subscriptions as s
 ON s.plan_id = p.plan_id
 WHERE EXTRACT(YEAR FROM start_date)='2020' and plan_name='pro annual'
 
-9.	How many days on average does it take for a customer to an annual plan from the day #they join Foodie-Fi?
+-- 9.	How many days on average does it take for a customer to an annual plan from the day #they join Foodie-Fi?
 -- self join subscriptions
 -- filter only where the trail plan is equal to pro annual (s1.plan_id+3=s2.plan_id) and plan is proannual in s2
 -- find average
@@ -142,7 +142,7 @@ JOIN foodie_fi.subscriptions as s2
 ON s1.customer_id=s2.customer_id
 WHERE s1.plan_id+3=s2.plan_id and s2.plan_id=3
 
-10.	Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 #days etc)
+-- 10.	Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 #days etc)
 -- use WIDTH_BUCKET function to allocate bins. We are alotting the datediff into 1-360 into 12 bins. 
 -- use the bin to find the days with CONCAT
 -- find the count and avg
@@ -160,7 +160,7 @@ SELECT
 FROM bins
 GROUP BY bins
 
-11.	How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+-- 11.	How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 --self join subscriptions
 -- filter when plan is basic to pro monthly using ‘s1.plan_id-1=s2.plan_id and 
 --s2.plan_id=1’ and s2 start date is lesser than s1 start date and year is 2020
